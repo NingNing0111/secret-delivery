@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env*
+!.env.example
+*.tsbuildinfo
+.playwright/
+playwright-report/
+test-results/
+backups/
+.pi/
+*.log
+.vitest/

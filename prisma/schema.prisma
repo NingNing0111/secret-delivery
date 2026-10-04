@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+enum SecretStatus {
+  ACTIVE
+  DISABLED
+}
+model Secret {
+  id String @id @default(cuid())
+  token String @unique @db.VarChar(32)
+  ciphertext String @db.Text
+  iv String
+  authTag String
+  status SecretStatus @default(ACTIVE)
+  expiresAt DateTime?
+  maxViews Int?
+  viewCount Int @default(0)
+  lastViewedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  batchId String
+  batchIndex Int
+  @@unique([batchId, batchIndex])
+  @@index([createdAt, id])
+  @@index([status])
+  @@index([expiresAt])
+}
+model AdminSession {
+  id String @id @default(cuid())
+  tokenHash String @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  @@index([expiresAt])
+}

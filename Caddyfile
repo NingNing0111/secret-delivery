@@ -1,0 +1,12 @@
+{$SITE_ADDRESS} {
+	# No access log: retrieval URLs are credentials.
+	request_body {
+		max_size {$REQUEST_BODY_LIMIT:16777216}
+	}
+	header {
+		-Server
+		Referrer-Policy no-referrer
+		X-Content-Type-Options nosniff
+	}
+	reverse_proxy app:3000
+}

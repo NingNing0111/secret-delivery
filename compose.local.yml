@@ -1,0 +1,9 @@
+services:
+  app:
+    environment:
+      ALLOW_INSECURE_LOCAL_COOKIE: 'true'
+  caddy:
+    environment:
+      SITE_ADDRESS: ':80'
+    ports: !override
+      - '127.0.0.1:8080:80'
